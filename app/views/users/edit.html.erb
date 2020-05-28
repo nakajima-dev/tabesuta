@@ -1,0 +1,53 @@
+<div class="text-sm-left">
+  <h1>Update your profile</h1>
+</div>
+
+
+<div class="row">
+  <aside class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= @user.name %></h3>
+      </div>
+      <div class="card-body">
+        <img class="rounded img-fluid" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
+        <a href="http://gravatar.com/emails" target="_blank" class="btn btn-info btn-block mt-4 mb-2">Change your photo</a>
+      </div>
+    </div>
+  </aside>
+  <div class="col-sm-8">
+    
+    <%= form_with(model: @user, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :name, 'Name' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, 'Email' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      
+      
+      <div class="form-group">
+        <%= f.label :birth_date, 'Birthday' %>
+        <%= f.date_select :birth_date, use_month_numbers: true,start_year: 1930, end_year: (Time.now.year - 10), default: Date.new(1989, 1, 1),  class: 'form-control' %>
+      </div>
+      
+      
+      <div class="form-group">
+        <%= f.label :password, 'Password' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'Confirmation' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+      <%= f.submit 'Save changes', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </div>
+</div>
