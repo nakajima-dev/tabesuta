@@ -1,5 +1,13 @@
 <% if logged_in? %>
+  <h2>キーワード検索</h2>
   <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  <span>現在はサービスエリア「東京」で検索をかけている。</span>
+  <%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
+    <%= f.label :keyword, 'キーワード' %>
+    <%= f.text_field :keyword %>
+    <%= f.submit '検索' %>
+  <% end %>
+  
 <% else %>
   <div class="center jumbotron">
     <div class="text-center">

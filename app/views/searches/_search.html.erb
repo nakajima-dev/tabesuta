@@ -1,0 +1,46 @@
+<div class="searches-head">
+  <h2>検索結果</h2>
+  <p>
+    <span>検索ヒット数:<%= results_available %></span>
+    <% if results_available - results_start  >= 9 %>
+      <span>表示数:<%= results_start %> ~ <%= results_start + 10%>件</span> <br>
+    <% else %>
+      <span>表示数:<%= results_start %> ~ <%= results_available %>件</span><br>
+    <% end %>
+  </p>
+</div>
+<div class="searches-body">
+  <ul class="list-unstyled">
+    <% shops.each do |shop| %>
+      <li class="media mb-3">
+        <picture>
+          <source media="(min-width: 1280px)" srcset=<%= shop["photo"]["pc"]["l"] %>>
+          <source media="(min-width: 640px)" srcset=<%= shop["photo"]["pc"]["m"] %>>
+          <img src=<%= shop["photo"]["mobile"]["l"] %> class="img-thumbnail" alt=<%= shop["name"] %>>
+        </picture>
+        <div class="media-body ml-4">
+          <h3><a href=<%= shop["urls"]["pc"] %>> <%= shop["name"] %> </a></h3>
+          <text><%= shop["genre"]["name"] %>  <%= shop["genre"]["catch"] %></text><br>
+          <text><%= shop["catch"] %></text>
+          <ul class="list-group">
+            <li class="list-group-item"k>
+              <i class="fas fa-map-marked-alt text-danger"></i>
+              <text><%=shop["access"]%></text>
+            </li>
+            <li class="list-group-item">
+              <i class="far fa-clock text-danger"></i>
+              <text><%=shop["open"]%></text>
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-yen-sign text-danger"></i>
+              <text><%=shop["budget"]["name"]%></text>
+            </li>
+          </ul>
+        </div>
+        
+        
+      </li>
+    <% end %>
+    <%= paginate shops%>
+  </ul>
+</div>

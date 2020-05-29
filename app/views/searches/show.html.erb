@@ -1,0 +1,34 @@
+
+<h2>キーワード検索</h2>
+<span>現在はサービスエリア「東京」で検索をかけている。</span>
+<%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
+  <%= f.label :keyword, 'キーワード' %>
+  <%= f.text_field :keyword %>
+  <%= f.submit '検索' %>
+<% end %>
+
+<% if @error %>
+  message:<%= @error %>
+  <% elsif @error.nil? && @shops.empty? %>
+    message:検索結果に合うお店が見つかりませんでした。
+  <% else %>
+  <%= render 'searches/search', shops: @shops, results_available: @results_available, results_start: @results_start %>
+<% end %>
+
+
+
+
+
+
+  <span>検索ヒット数:<%# @results_available %>件</span> <br>
+  
+  <%# if @results_available - @results_start  >= 9 %>
+    <span>表示数:<%# @results_start %> ~ <%#@results_start + 10%>件</span> <br>
+  <%# else %>
+    <span>表示数:<%# @results_start %> ~ <%# @results_available %>件</span><br>
+  <%# end %>
+  <%# @shops.each do |shop| %>
+  <span><%# shop["name"] %></span>
+  <br>
+  <%# end %>
+  <%# paginate @shops %>
