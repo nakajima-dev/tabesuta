@@ -10,6 +10,7 @@
   </p>
 </div>
 <div class="searches-body">
+  <%= paginate shops%>
   <ul class="list-unstyled">
     <% shops.each do |shop| %>
       <li class="media mb-3">
@@ -19,26 +20,47 @@
           <img src=<%= shop["photo"]["mobile"]["l"] %> class="img-thumbnail" alt=<%= shop["name"] %>>
         </picture>
         <div class="media-body ml-4">
-          <h3><a href=<%= shop["urls"]["pc"] %>> <%= shop["name"] %> </a></h3>
+          <h3><a href=<%= shop["urls"]["pc"] %> target="_blank"> <%= shop["name"] %> </a></h3>
           <text><%= shop["genre"]["name"] %>  <%= shop["genre"]["catch"] %></text><br>
           <text><%= shop["catch"] %></text>
           <ul class="list-group">
             <li class="list-group-item"k>
               <i class="fas fa-map-marked-alt text-danger"></i>
-              <text><%=shop["access"]%></text>
+              <text class="small"><%= truncate(shop["access"], length: 40) %></text>
             </li>
             <li class="list-group-item">
               <i class="far fa-clock text-danger"></i>
-              <text><%=shop["open"]%></text>
+              <text class="small"><%= truncate(shop["open"], length: 45) %></text>
             </li>
             <li class="list-group-item">
               <i class="fas fa-yen-sign text-danger"></i>
-              <text><%=shop["budget"]["name"]%></text>
+              <text class="small"><%= truncate(shop["budget"]["name"], length: 40) %></text>
             </li>
           </ul>
+          
+          <div class="d-flex flex-row">
+            <div class=" p-2">
+              <a class="btn btn-danger" href=<%= shop["urls"]["pc"] %> target="_blank">HotPapper</a>
+            </div>
+            <div class="dropdown p-2">
+              <button type="budget" class="btn dropdown-toggle" style="background-color:#CF2E92" data-toggle="dropdown">
+                <i class="fab fa-instagram text-white"></i>
+                <text class="text-white">インスタ</text>
+              </button>
+              <div class="dropdown-menu">
+                <% shop["name"].split.each do |name| %>
+                  <a class="dropdown-item" href=<%= search_tags_URI(name) %> target="_blank"><%= name %></a>
+                <% end %>
+              </div>
+            </div>
+            <div class="p-2">
+              <a class="btn" href="#">お気に入りボタン</a>
+            </div>
+            
+          </div>
+          
+          
         </div>
-        
-        
       </li>
     <% end %>
     <%= paginate shops%>

@@ -14,21 +14,3 @@
   <% else %>
   <%= render 'searches/search', shops: @shops, results_available: @results_available, results_start: @results_start %>
 <% end %>
-
-
-
-
-
-
-  <span>検索ヒット数:<%# @results_available %>件</span> <br>
-  
-  <%# if @results_available - @results_start  >= 9 %>
-    <span>表示数:<%# @results_start %> ~ <%#@results_start + 10%>件</span> <br>
-  <%# else %>
-    <span>表示数:<%# @results_start %> ~ <%# @results_available %>件</span><br>
-  <%# end %>
-  <%# @shops.each do |shop| %>
-  <span><%# shop["name"] %></span>
-  <br>
-  <%# end %>
-  <%# paginate @shops %>
