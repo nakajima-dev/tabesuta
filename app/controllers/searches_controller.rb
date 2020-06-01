@@ -68,7 +68,7 @@ class SearchesController < ApplicationController
           else
             @results_available = @results["results_available"]
             @results_start = @results["results_start"]
-            @shops = Kaminari.paginate_array(@results["shop"], total_count: @results_available).page((@results_start -1)/10 + 1).per(10)
+            @searches = Kaminari.paginate_array(@results["shop"], total_count: @results_available).page((@results_start -1)/10 + 1).per(10)
           end
         # 別のURLに飛ばされた場合
         when Net::HTTPRedirection

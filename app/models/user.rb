@@ -7,4 +7,12 @@ class User < ApplicationRecord
   validates :birth_date, presence: true
   validates :password, presence: true
   has_secure_password
+  
+  has_many :shops, dependent: :destroy
+  
+  
+  def fav_shop?(number)
+    self.shops.exists?(number: number)
+  end
+  
 end

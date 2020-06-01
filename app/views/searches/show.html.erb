@@ -9,8 +9,8 @@
 
 <% if @error %>
   message:<%= @error %>
-  <% elsif @error.nil? && @shops.empty? %>
+  <% elsif @error.nil? && @searches.empty? %>
     message:検索結果に合うお店が見つかりませんでした。
   <% else %>
-  <%= render 'searches/search', shops: @shops, results_available: @results_available, results_start: @results_start %>
+  <%= render 'searches/search', searches: @searches, results_available: @results_available, results_start: @results_start %>
 <% end %>

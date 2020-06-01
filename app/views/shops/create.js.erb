@@ -1,0 +1,4 @@
+$(function() {
+    $('#likes_buttons_<%= params[:number] %>').html("<%= j(render partial: 'shops/fav_button', locals: {hot_id: @num}) %>");
+    
+});

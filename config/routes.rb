@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   resources :users, except: [:new]
   
+  resources :shops, only: [:create, :destroy]
+  
   
   
   get 'searches/show'
