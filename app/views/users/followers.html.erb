@@ -6,19 +6,15 @@
       </div>
       <div class="card-body">
         <img class="rounded img-fluid" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
-        <% if @user == current_user %>
-          <%= link_to 'Update your profile', edit_user_path(@user), class: "btn btn-primary btn-block mt-4" %>
-          <%= link_to 'Delete', @user, method: :delete, data: {confirm: '本当に削除してよろしいですか？'}, class: "btn btn-danger btn-block mtb-2" %>
-        <% end %>
       </div>
-      <%= render 'relationships/follow_button', user: @user %>
     </div>
+    <%= render 'relationships/follow_button', user: @user %>
   </aside>
   <div class="col-sm-8">
     <ul class="nav nav-tabs nav-justified mb-3">
-      <li class="nav-item"><a href="#" class="nav-link">Microposts</a></li>
       <li class="nav-item"><a href="<%= followings_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followings_user_path(@user)) %>">Followings  <span class="badge badge-secondary"><%= @count_followings %></span></a></li>
       <li class="nav-item"><a href="<%= followers_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followers_user_path(@user)) %>">Followers  <span class="badge badge-secondary"><%= @count_followers %></span></a></li>
     </ul>
+    <%= render 'users', users: @followers %>
   </div>
 </div>

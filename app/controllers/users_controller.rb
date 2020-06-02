@@ -1,16 +1,17 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, except: [:new, :create]
   
-  before_action :user_exists?, except: [:index, :new, :create]
-  before_action :set_user, except: [:index, :new, :create]
+  before_action :user_exists?, except: [:index, :new, :create, :followings, :followers]
+  before_action :set_user, except: [:index, :new, :create, :followings, :followers]
   
-  before_action :user_himself?, except: [:index, :show, :new, :create]
+  before_action :user_himself?, except: [:index, :show, :new, :create, :followings, :followers]
   
   def index
     @users = User.order(id: :desc).page(params[:page]).per(5)
   end
 
   def show
+    counts(@user)
   end
 
   def new
@@ -46,6 +47,18 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = "正常に退会されました。"
     redirect_to root_url
+  end
+  
+  def followings
+    @user = User.find(params[:id])
+    @followings = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page])
+    counts(@user)
   end
   
   
