@@ -3,7 +3,7 @@
   <p>
     <span>検索ヒット数:<%= results_available %></span>
     <% if results_available - results_start  >= 9 %>
-      <span>表示数:<%= results_start %> ~ <%= results_start + 10%>件</span> <br>
+      <span>表示数:<%= results_start %> ~ <%= results_start + 9%>件</span> <br>
     <% else %>
       <span>表示数:<%= results_start %> ~ <%= results_available %>件</span><br>
     <% end %>

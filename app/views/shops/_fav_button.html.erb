@@ -1,11 +1,17 @@
 <% if current_user.fav_shop?(hot_id) %>
   <%= form_with(model: current_user.shops.find_by(number: hot_id), remote: true, method: :delete) do |f| %>
     <%= hidden_field_tag :number, hot_id %>
-    <%= f.submit 'Unlike '+Shop.where(number: hot_id).count.to_s , class: 'btn btn-warning' %>
+    <%= button_tag :type => "submit", :class =>"btn border border-primary" do %>
+      <i class="fas fa-heart text-danger"></i>
+      <text>Fav : <%= Shop.where(number: hot_id).count.to_s %></text>
+    <% end %>
   <% end %>
 <% else %>
   <%= form_with(model: current_user.shops.build, remote: true, method: :post) do |f| %>
     <%= hidden_field_tag :number, hot_id %>
-    <%= f.submit 'Like '+Shop.where(number: hot_id).count.to_s, class: 'btn btn-primary' %>
+    <%= button_tag :type => "submit", :class =>"btn border border-primary" do %>
+      <i class="far fa-heart "></i>
+      <text>Fav : <%= Shop.where(number: hot_id).count.to_s %></text>
+    <% end %>
   <% end %>
 <% end %>
