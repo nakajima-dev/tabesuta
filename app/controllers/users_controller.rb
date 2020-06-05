@@ -120,6 +120,7 @@ class UsersController < ApplicationController
     end
   end
   
+  
   def fav_exists?
     unless User.find(params[:id]).shops.exists?
       flash[:danger] = "まだお気に入りがありません。"

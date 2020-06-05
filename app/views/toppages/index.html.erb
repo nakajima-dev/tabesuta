@@ -1,10 +1,11 @@
 <% if logged_in? %>
   <h2>キーワード検索</h2>
-  <p>ログイン完了ユーザ: <%= current_user.name %></p>
-  <span>現在はサービスエリア「東京」で検索をかけている。</span>
   <%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
-    <%= f.label :keyword, 'キーワード' %>
-    <%= f.text_field :keyword %>
+    <% (0..(@term_list.keys.length - 1)).each do |i| %>
+      <%= f.select @term_list.keys[i], @term_list[@term_list.keys[i]] %>
+    <% end %>
+    <br>
+    <%= f.text_field :keyword ,:placeholder => "キーワード", :class => "m-2"%>
     <%= f.submit '検索' %>
   <% end %>
   
