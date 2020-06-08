@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   before_action :user_himself?, except: [:index, :show, :new, :create, :followings, :followers, :likes]
   
   before_action :fav_exists?, only: [:likes]
+  before_action :set_room,  only: [:show, :followings, :followers, :likes]
   
   def index
     @users = User.order(id: :desc).page(params[:page]).per(5)
@@ -34,10 +35,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = 'ユーザを登録しました。'
+      flash[:success] = 'ユーザを登録しました'
       redirect_to @user
     else
-      flash.now[:danger] = 'ユーザの登録に失敗しました。'
+      flash.now[:danger] = 'ユーザの登録に失敗しました'
       render :new
     end
   end
@@ -47,17 +48,17 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "ユーザを更新しました。"
+      flash[:success] = "ユーザを更新しました"
       redirect_to @user
     else
-      flash.now[:danger] = "ユーザは更新されませんでした。"
+      flash.now[:danger] = "ユーザは更新されませんでした"
       render :edit
     end
   end
 
   def destroy
     @user.destroy
-    flash[:success] = "正常に退会されました。"
+    flash[:success] = "正常に退会されました"
     redirect_to root_url
   end
   
@@ -97,6 +98,26 @@ class UsersController < ApplicationController
   
   
   private
+  
+  def set_room
+    @currentUserEntry=Entry.where(user_id: current_user.id)
+    @userEntry=Entry.where(user_id: @user.id)
+    unless @user.id == current_user.id
+      @currentUserEntry.each do |cu|
+        @userEntry.each do |u|
+          if cu.room_id == u.room_id then
+            @isRoom = true
+            @roomId = cu.room_id
+          end
+        end
+      end
+      if @isRoom
+      else
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :birth_date, :password, :password_confirmation)
@@ -108,21 +129,21 @@ class UsersController < ApplicationController
   
   def user_himself?
     unless current_user == User.find(params[:id])
-      flash[:danger] = "他ユーザの編集はできません。"
+      flash[:danger] = "You cannot edit other users"
       redirect_to user_path(current_user)
     end
   end
   
   def user_exists?
     unless User.exists?(params[:id])
-      flash[:danger] = "存在しないユーザです。"
+      flash[:danger] = "User does not exist"
       redirect_to user_path(current_user)
     end
   end
   
   def fav_exists?
     unless User.find(params[:id]).shops.exists?
-      flash[:danger] = "まだお気に入りがありません。"
+      flash[:danger] = "There are no favorites"
       redirect_to user_path(User.find(params[:id]))
     end
   end

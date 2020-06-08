@@ -1,19 +1,26 @@
 <% if logged_in? %>
-  <h2>キーワード検索</h2>
-  <%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
-    <% (0..(@term_list.keys.length - 1)).each do |i| %>
-      <%= f.select @term_list.keys[i], @term_list[@term_list.keys[i]] %>
-    <% end %>
-    <br>
-    <%= f.text_field :keyword ,:placeholder => "キーワード", :class => "m-2"%>
-    <%= f.submit '検索' %>
-  <% end %>
+  
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container text-white">
+      <h2>条件検索</h2>
+       <%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
+        <% (0..(@term_list.keys.length - 1)).each do |i| %>
+          <%= f.select @term_list.keys[i], @term_list[@term_list.keys[i]] %>
+        <% end %>
+        <br>
+        <%= f.text_field :keyword ,:placeholder => "キーワード", :class => "mt-2"%>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>
+  </div>
+ 
   
 <% else %>
   <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Welcome to the Tabesuta</h1>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+    <div class="text-center  text-white">
+      <h1>Tabesuta!</h1>
+      <%= link_to '新規登録', signup_path, class: 'btn btn-lg btn-primary' %>
+      <%= link_to 'ログイン', login_path, class: 'btn btn-lg btn-info' %>
     </div>
   </div>
 <% end %>

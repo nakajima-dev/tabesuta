@@ -39,6 +39,7 @@ class SearchesController < ApplicationController
         @term_list_name[@term_list_name.keys[i]][1] = ""
       end
     end
+    # binding.pry
   end
   
   

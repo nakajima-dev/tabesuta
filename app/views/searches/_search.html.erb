@@ -10,16 +10,18 @@
   </p>
 </div>
 <div class="searches-body">
-  <%= paginate searches%>
+  <%= paginate searches, :window => 2%>
   <ul class="list-unstyled">
     <% searches.each do |search| %>
-      <li class="media mb-3">
-        <picture>
-          <source media="(min-width: 1280px)" srcset=<%= search["photo"]["pc"]["l"] %>>
-          <source media="(min-width: 640px)" srcset=<%= search["photo"]["pc"]["m"] %>>
-          <img src=<%= search["photo"]["mobile"]["l"] %> class="img-thumbnail" alt=<%= search["name"] %>>
-        </picture>
-        <div class="media-body ml-4">
+      <li class="media my-4 p-2 row border rounded">
+        <div class="col-md-4 text-center">
+          <picture>
+            <source media="(min-width: 1280px)" srcset=<%= search["photo"]["pc"]["l"] %>>
+            <source media="(min-width: 640px)" srcset=<%= search["photo"]["pc"]["m"] %>>
+            <img src=<%= search["photo"]["mobile"]["l"] %> class="img-thumbnail" alt=<%= search["name"] %>>
+          </picture>          
+        </div>
+        <div class="media-body col-md-8">
           <h3><a href=<%= search["urls"]["pc"] %> target="_blank"> <%= search["name"] %> </a></h3>
           <text><%= search["genre"]["name"] %>  <%= search["genre"]["catch"] %></text><br>
           <text><%= search["catch"] %></text>
@@ -37,23 +39,22 @@
               <text class="small"><%= truncate(search["budget"]["name"], length: 40) %></text>
             </li>
           </ul>
-          
-          <div class="d-flex flex-row">
-            <div class=" p-2">
+          <div class="d-flex flex-row justify-content-around row">
+            <div class="py-2 col-xs-12">
               <a class="btn btn-danger" href=<%= search["urls"]["pc"] %> target="_blank">HotPapper</a>
             </div>
-            <div class="dropdown p-2">
+            <div class="dropdown py-2 col-xs-12">
               <button type="budget" class="btn dropdown-toggle" style="background-color:#CF2E92" data-toggle="dropdown">
                 <i class="fab fa-instagram text-white"></i>
                 <text class="text-white">インスタ</text>
               </button>
               <div class="dropdown-menu">
-                <% search["name"].split.each do |name| %>
+                <% search_tags_split(search["name"]).each do |name| %>
                   <a class="dropdown-item" href=<%= search_tags_URI(name) %> target="_blank"><%= name %></a>
                 <% end %>
               </div>
             </div>
-            <div class="p-2" id="likes_buttons_<%= search["id"]%>">
+            <div class="py-2 col-x-12" id="likes_buttons_<%= search["id"]%>">
               <%= render 'shops/fav_button.html.erb', hot_id: search["id"] %>
             </div>
             
@@ -63,6 +64,6 @@
         </div>
       </li>
     <% end %>
-    <%= paginate searches%>
+    <%= paginate searches, :window => 2%>
   </ul>
 </div>

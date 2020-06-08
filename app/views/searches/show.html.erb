@@ -1,20 +1,20 @@
 
-<h2>キーワード検索</h2>
+<h2>条件検索</h2>
   <%= form_with url: searches_show_path, method: :get, local: :true do |f| %>
     <% (0..(@term_list.keys.length - 1)).each do |i| %>
       <%= f.select @term_list.keys[i], @term_list[@term_list.keys[i]] %>
     <% end %>
     <br>
-    <%= f.text_field :keyword ,:placeholder => "キーワード", :class => "m-2"%>
+    <%= f.text_field :keyword ,:placeholder => "キーワード", :class => "mt-2"%>
     <%= f.submit '検索' %>
   <% end %>
 
 <% if @error %>
-  message:<%= @error %>
+  message:<%= @error["message"] %>
   <% elsif @error.nil? && @searches.empty? %>
     message:検索結果に合うお店が見つかりませんでした。
   <% else %>
-  <h3>検索結果項目</h3>
+  <h3 class="mt-2">検索項目</h3>
   <ul>
     <% (0..@term_list_name.length - 1).each do |i| %>
       <li><%= @term_list_name[@term_list_name.keys[i]][0] + " : " + @term_list_name[@term_list_name.keys[i]][1] %></li>

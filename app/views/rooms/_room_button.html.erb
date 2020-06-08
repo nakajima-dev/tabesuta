@@ -1,0 +1,18 @@
+<% unless current_user == user %>
+  <% if current_user.following?(user) && user.following?(current_user)  %>
+    <% if isRoom == true %>
+      <%= link_to 'チャットする', room_path(roomId), class: "btn btn-info btn-block mt-4" %>
+    <% else %>
+      <%= form_for room do |f| %>
+        <%= fields_for entry do |e| %>
+          <%= e.hidden_field :user_id, :value=> user.id %>
+        <% end %>
+        <%= f.submit "チャットを始める", class: 'btn btn-success btn-block' %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <span class="btn btn-secondary disabled btn-block">相互フォロー後チャットできます</span>
+  <% end %>
+<% end %>
+
+
