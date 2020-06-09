@@ -22,4 +22,10 @@
     <% end %>
   </ul>
   <%= paginate users %>
+  <div class="d-sm-none">
+    <%= paginate users,  window: 1%>
+  </div>
+  <div class="d-none d-sm-block">
+    <%= paginate users%>
+  </div>
 <% end %>

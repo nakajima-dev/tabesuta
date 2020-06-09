@@ -10,7 +10,12 @@
   </p>
 </div>
 <div class="searches-body">
-  <%= paginate searches, :window => 2%>
+  <div class="d-sm-none">
+    <%= paginate searches,  window: 1%>
+  </div>
+  <div class="d-none d-sm-block">
+    <%= paginate searches%>
+  </div>
   <ul class="list-unstyled">
     <% searches.each do |search| %>
       <li class="media my-4 p-2 row border rounded">
@@ -64,6 +69,12 @@
         </div>
       </li>
     <% end %>
-    <%= paginate searches, :window => 2%>
+    <div class="d-sm-none">
+      <%= paginate searches,  window: 1%>
+    </div>
+    <div class="d-none d-sm-block">
+      <%= paginate searches%>
+    </div>
+    
   </ul>
 </div>
